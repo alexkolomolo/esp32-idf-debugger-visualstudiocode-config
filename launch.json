@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "gdb",
+            "request": "attach",
+            "name": "ESP32 OpenOCD",
+            "executable": "./build/app_project.elf",
+            "target": ":3333",
+            "gdbpath": "xtensa-esp32-elf-gdb",
+            "printCalls": false,
+            "showDevDebugOutput": false,
+            "valuesFormatting": "prettyPrinters",
+            "autorun": [
+                "set remote hardware-breakpoint-limit 6",
+                "set remote hardware-watchpoint-limit 4",
+                "mon reset halt",
+                "mon program_esp32 ./build/app_project.bin 0x10000 verify",
+                "mon reset halt",
+                "x $a1=0"
+            ],
+            "remote": true,
+            "cwd": "${workspaceRoot}"
+        }
+    ]
+}
